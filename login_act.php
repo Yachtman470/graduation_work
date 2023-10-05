@@ -32,6 +32,7 @@ if( $pw ){
   $_SESSION['chk_ssid']  = session_id();
   $_SESSION['kanri_flg'] = $val['kanri_flg'];
   $_SESSION['name']      = $val['name'];
+  $_SESSION['lid']      = $val['lid'];
   redirect('tr_list_view.php');
 }else{
   //Login失敗時(Logout経由)

@@ -61,6 +61,10 @@ if($status==false) {
      <select name='route'>
      <option value='大阪→東京'>大阪→東京</option>
      <option value='東京→大阪'>東京→大阪</option>
+     <option value='大阪→福岡'>大阪→福岡</option>
+     <option value='福岡→大阪'>福岡→大阪</option>
+     <option value='東京→仙台'>東京→仙台</option>
+     <option value='仙台→東京'>仙台→東京</option>
      </select><br>
      <label>出発日：<input type="date" name="departure"></label><br>
      <label>到着日：<input type="date" name="arrival"></label><br>
