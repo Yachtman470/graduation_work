@@ -22,7 +22,8 @@ try {
 }
 
 //３．データ登録SQL作成
-$stmt = $pdo->prepare("INSERT INTO transport_table(name,route,departure,arrival,size,indate)VALUES(:name, :route, :departure, :arrival, :size, sysdate());");
+$stmt = $pdo->prepare("INSERT INTO transport_table(lid,name,route,departure,arrival,size,indate)VALUES(:lid, :name, :route, :departure, :arrival, :size, sysdate());");
+$stmt->bindValue(':lid', $_SESSION['lid'], PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':route', $route, PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':departure', $departure, PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)

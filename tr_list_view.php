@@ -26,16 +26,18 @@ if($status==false) {
   //Selectデータの数だけ自動でループしてくれる
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $view .= '<a href="matching_view.php?id='.h($r["id"]).'">';
-    $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
-    // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
-    $view .= '</a>';
-    $view .= '<a href="tr_update_view.php?id='.h($r["id"]).'">';
-    $view .= "[編集]<br>";
-    $view .= '</a>';
-    $view .= '<a href="tr_delete.php?id='.h($r["id"]).'">';
-    $view .= "[削除]<br>";
-    $view .= '</a>';
+    if ($r["lid"] == $_SESSION['lid']){
+      $view .= '<a href="matching_view.php?id='.h($r["id"]).'">';
+      $view .= h($r["id"])." | ".h($r["lid"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
+      // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
+      $view .= '</a>';
+      $view .= '<a href="tr_update_view.php?id='.h($r["id"]).'"> ';
+      $view .= "[編集]";
+      $view .= '</a>';
+      $view .= '<a href="tr_delete.php?id='.h($r["id"]).'"> ';
+      $view .= "[削除]<br>";
+      $view .= '</a>';
+    }
   }
 }
 ?>

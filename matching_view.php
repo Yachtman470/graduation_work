@@ -64,7 +64,7 @@ $status = $stmt->execute();
 
 //３．データ表示
 $view="";
-echo($_SESSION['lid']);
+// echo($_SESSION['lid']);
 if($status==false) {
   //SQLエラーの場合
   sql_error($stmt);
@@ -72,13 +72,13 @@ if($status==false) {
   //Selectデータの数だけ自動でループしてくれる
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-    // if ($r["route"] == "東京→大阪"){
+    if ($r["lid"] != $_SESSION['lid']){
     $view .= '<a href="tr_update_view.php?id='.h($r["id"]).'">';
     $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
     // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
-    $view .= '</a>';
+    $view .= '</a><br>';
     }
-  // }
+  }
 }
 ?>
 
