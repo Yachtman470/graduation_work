@@ -24,6 +24,7 @@ if($status==false) {
   sql_error($stmt);
 }else{
   $row = $stmt->fetch();
+  $mid = $row["mid"];
   $departure = $row["departure"];
   $arrival = $row["arrival"];
   $size = $row["size"];
@@ -71,13 +72,28 @@ if($status==false) {
 }else{
   //Selectデータの数だけ自動でループしてくれる
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
+  $view .= "<p>マッチング未申請</p>";
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-    if ($r["lid"] != $_SESSION['lid']){
-    $view .= '<a href="tr_update_view.php?id='.h($r["id"]).'">';
-    $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
-    // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
-    $view .= '</a><br>';
-    }
+    if ($r["lid"] != $_SESSION['lid'] && !$r["life_flg"] && $r["id"] != $mid){
+      $view .= '<a href="tr_update_view.php?id='.h($r["id"]).'">';
+      $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
+      // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
+      $view .= '</a> ';
+      $view .= '<a href="matching_insert.php?id='.$id.'&mid='.h($r["id"]).'"> ';
+      $view .= "[マッチング申請]</a><br>";
+    }  
+  }
+  $status = $stmt->execute();
+  $view .= "<p>マッチング申請済</p>";
+  while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
+    if ($r["lid"] != $_SESSION['lid'] && !$r["life_flg"] && $r["id"] == $mid){
+      $view .= '<a href="tr_update_view.php?id='.h($r["id"]).'">';
+      $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
+      // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
+      $view .= '</a> ';
+      $view .= '<a href="matching_insert.php?id='.$id.'"> ';
+      $view .= "[取消]</a><br>";
+    }  
   }
 }
 ?>
