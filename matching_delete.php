@@ -5,9 +5,8 @@ include("funcs.php");
 sschk();
 
 //1. POSTデータ取得
-
 $id = $_GET['id'];
-$mid = $_GET['mid'];
+// $mid = $_GET['mid'];
 
 //2. DB接続します
 try {
@@ -22,7 +21,7 @@ try {
 $sql = "UPDATE transport_table SET mid=:mid WHERE id=:id";
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);  //Integer（数値の場合 PDO::PARAM_INT)
-$stmt->bindValue(':mid', $mid, PDO::PARAM_INT);  //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':mid', 0, PDO::PARAM_INT);  //Integer（数値の場合 PDO::PARAM_INT)
 $status = $stmt->execute(); //実行
 
 //４．データ登録処理後

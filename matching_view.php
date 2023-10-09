@@ -91,8 +91,17 @@ if($status==false) {
       $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
       // $view .= $res['id'].', '.$res['name'].', '.$res['url'].', '.$res['comment'].', '.$res['datetime'];
       $view .= '</a> ';
-      $view .= '<a href="matching_insert.php?id='.$id.'"> ';
+      $view .= '<a href="matching_delete.php?id='.$id.'"> ';
       $view .= "[取消]</a><br>";
+    }  
+  }
+
+  $status = $stmt->execute();
+  $view .= "<p>マッチング申請済</p>";
+  while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
+    if ($r["life_flg"]){
+      $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
+      $view .= " [マッチング済]<br>";
     }  
   }
 }
@@ -111,20 +120,7 @@ if($status==false) {
 </head>
 <body id="main">
 <!-- Head[Start] -->
-<header>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-    <div class="navbar-header"><a class="navbar-brand" href="tr_register.php">運行便登録</a></div>
-    <div class="navbar-header"><a class="navbar-brand" href="tr_list_view.php">運行便表示</a></div>
-    <?php if ($_SESSION['kanri_flg'] == 1) : ?>
-      <div class="navbar-header"><a class="navbar-brand" href="us_register.php">ユーザー登録</a></div>
-      <div class="navbar-header"><a class="navbar-brand" href="us_list_view.php">ユーザー表示</a></div>
-      <!-- endifとセミコロンで閉じる -->
-    <?php endif; ?>
-    <div class="navbar-header"><a class="navbar-brand" href="logout.php">ログアウト</a></div>
-    </div>
-  </nav>
-</header>
+<?php include "header.html" ?>
 <!-- Head[End] -->
 
 <!-- Main[Start] -->
