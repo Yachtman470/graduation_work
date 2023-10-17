@@ -97,7 +97,7 @@ if($status==false) {
   }
 
   $status = $stmt->execute();
-  $view .= "<p>マッチング申請済</p>";
+  $view .= "<p>マッチング済</p>";
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
     if ($r["life_flg"]){
       $view .= h($r["id"])." | ".h($r["name"])." | ".h($r["route"])." | ".h($r["departure"])." | ".h($r["arrival"])." | ".h($r["size"]);
